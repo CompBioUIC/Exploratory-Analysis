@@ -839,22 +839,7 @@ for day in range(len(tms_days)):
                             ),
                               row=2, col=1
                         )
-            ann = []
-            arrow = ann.append(go.layout.Annotation(dict(
-                x= distances1[day][baboon].loc[peak1[day]['centroid1'], 'time'],
-                y= 2000,
-                xref="x", yref="y",
-                text="",
-                showarrow=True,
-                axref = "x", ayref='y',
-                ax= distances1[day][baboon].loc[peak2[day]['centroid1'], 'time'],
-                ay= 2000,
-                arrowhead = 3,
-                arrowwidth=1.5,
-                arrowcolor='rgb(255,51,0)',)
-            ))
             
-            fig.update_layout(annotations = arrow)
             
 fig.update_xaxes(title='Time', showticklabels=True, row=1, col=1)
 fig.update_xaxes(title='Time', row=2, col=1)
@@ -957,6 +942,7 @@ for day in range(30):
         if baboon != 'centroid1' and len(distances_from_return1[day][baboon]) > 0:
 
             try:
+                distances_from_return_new1[day][baboon] = distances_from_return_new1[day][baboon].sort_values(by = ['time']).reset_index(drop = True)
 #                 first = end_of_beg[day][baboon]
                 this_baboon = baboons_variations_return[baboon]
                 k = len(this_baboon)
@@ -1032,6 +1018,7 @@ for day in range(30):
         if baboon == 'centroid1':
 #             first = min(distances_from_start[day][baboon]['time'].index)
 #             first = end_of_beg[day][baboon]
+            distances_from_return_new1[day][baboon] = distances_from_return_new1[day][baboon].sort_values(by = ['time']).reset_index(drop = True)
             first = peak1[day][baboon]
             centroid_starts.append(datetime.datetime.time(distances_from_return1[day][baboon].loc[first, 'time']))#.hour + (distances_from_return[day][baboon].loc[first, 'time']).minute * 0.01)
 #             last = max(distances_from_return[day][baboon]['time'].index)
